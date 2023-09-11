@@ -30,7 +30,19 @@ I found some interesting [article](https://medium.com/codex/build-a-stocks-price
    - Transfer data from S3 Bucket to Lambda.
    - Store data in AWS RDS. 
 2. Data Extraction, Preprocessing & EDA: Extract & Pre-process the data using Python and perform basic Exploratory Data Analysis.
-3. Machine Learning Model development: Develop a machine learning model, Train the model on historical data, Evaluate the model and perform hyperparameter tuning
+   - Clean data: check null, duplicated.
+   - Perform Time Series Analysis.
+     - Trends.
+     - Seasonalities.
+     - Cyclic.
+   - Features Engineering.
+     - Lags.
+     - Day, Year.
+3. Machine Learning Model development: Develop a machine learning model, Train the model on historical data, Evaluate the model and perform hyperparameter
+  - Split data into training set and testing set
+  - Select the appropriate model, loss function
+  - Train model and predict
+  - Validate and select the best model
 4. Machine Learning Model deployment: Deploy the final model on Snowflake.
 5. Trading Bot development: Develop a trading bot, design profitable strategy.
 6. Web App Development: Build a web app using Streamlit and Python to interact with the deployed model and display the predictions. And Deploy the final app on Streamlit Cloud.
