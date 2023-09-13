@@ -24,9 +24,10 @@ I found some interesting [article](https://medium.com/codex/build-a-stocks-price
 ## Project Layout
 1. Data collection: Automatically download the stock historical prices data in CSV format and save it to the AWS S3 bucket.
    - Create a S3 Bucket to store data.
-   - Write Python code to pull stock price history using Yahoo Finance API.
+   - Write Python code to pull stock price history using Yahoo Finance API and store .csv file. In my case, I store in the local machine because the file is light and we just do it once for history data. Then I push this file to S3 bucket.
+   - Create a Database in RDS to store data and push the .csv file in S3 to create a table. I found an useful [tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PostgreSQL.S3Import.html#USER_PostgreSQL.S3Import.Overview).  
    - Create a Lambda Layer (package management for Lambda) for Lambda Function.
-   - Write Lambda Function to push data to S3 Bucket.
+   - Write Lambda Function to push update data to S3 Bucket.
    - Transfer data from S3 Bucket to Lambda.
    - Store data in AWS RDS. 
 2. Data Extraction, Preprocessing & EDA: Extract & Pre-process the data using Python and perform basic Exploratory Data Analysis.
@@ -38,11 +39,13 @@ I found some interesting [article](https://medium.com/codex/build-a-stocks-price
    - Features Engineering.
      - Lags.
      - Day, Year.
-3. Machine Learning Model development: Develop a machine learning model, Train the model on historical data, Evaluate the model and perform hyperparameter
-  - Split data into training set and testing set
-  - Select the appropriate model, loss function
-  - Train model and predict
-  - Validate and select the best model
-4. Machine Learning Model deployment: Deploy the final model on Snowflake.
+3. Machine Learning Model development: Develop a machine learning model, Train the model on historical data, Evaluate the model and perform hyperparameter fine-tune. I perform all of them on stock_price_preprocessed.csv.
+   - Split data into training set and testing set.
+   - Select the appropriate model, loss function.
+   - Train model and predict.
+   - Validate and select the best model. I have a problem that my model is a custom hybrid model so I have to create `fit`, `predict`, `save`, `load` function by myself. This [article](https://towardsdatascience.com/hybrid-rule-based-machine-learning-with-scikit-learn-9cb9841bebf2) would be helpful. Or on the easier way, use joblib. I save final_model.pkl here.
+4. Machine Learning Model deployment: Deploy the final model on EC2.
+  - Develop a Streamlit app locally.
+  - Push the app on a EC2 instance.
 5. Trading Bot development: Develop a trading bot, design profitable strategy.
 6. Web App Development: Build a web app using Streamlit and Python to interact with the deployed model and display the predictions. And Deploy the final app on Streamlit Cloud.
