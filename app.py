@@ -1,4 +1,3 @@
-# pip install streamlit fbprophet yfinance plotly
 import streamlit as st
 from datetime import date
 
@@ -6,6 +5,13 @@ import yfinance as yf
 from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
+
+import psycopg2
+import sys
+import boto3
+import os
+
+# Get data from yfinance API
 
 START = "2013-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
@@ -24,6 +30,9 @@ def load_data(ticker):
     data = yf.download(ticker, START, TODAY)
     data.reset_index(inplace=True)
     return data
+
+# Get data from RDS PostgreSQL
+
 
 	
 data_load_state = st.text('Loading data...')

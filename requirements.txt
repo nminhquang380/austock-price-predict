@@ -1,3 +1,4 @@
 yfinance
 prophet
 streamlit
+psycopg2

@@ -26,7 +26,7 @@ I found some interesting [article](https://medium.com/codex/build-a-stocks-price
    - Create a S3 Bucket to store data.
    - Write Python code to pull stock price history using Yahoo Finance API and store .csv file. In my case, I store in the local machine because the file is light and we just do it once for history data. Then I push this file to S3 bucket.
    - Create a Database in RDS to store data and push the .csv file in S3 to create a table. I found an useful [tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PostgreSQL.S3Import.html#USER_PostgreSQL.S3Import.Overview).  
-   - Create a Lambda Layer (package management for Lambda) for Lambda Function.
+   - Create a Lambda Layer (package management for Lambda) for Lambda Function. This [link](https://aws.plainenglish.io/monitoring-apples-stock-prices-with-aws-lambda-cloudwatch-and-rds-13b572c73cb0) would be helpful.
    - Write Lambda Function to push update data to S3 Bucket.
    - Transfer data from S3 Bucket to Lambda.
    - Store data in AWS RDS. 
@@ -43,9 +43,9 @@ I found some interesting [article](https://medium.com/codex/build-a-stocks-price
    - Split data into training set and testing set.
    - Select the appropriate model, loss function.
    - Train model and predict.
-   - Validate and select the best model. I have a problem that my model is a custom hybrid model so I have to create `fit`, `predict`, `save`, `load` function by myself. This [article](https://towardsdatascience.com/hybrid-rule-based-machine-learning-with-scikit-learn-9cb9841bebf2) would be helpful. Or on the easier way, use joblib. I save final_model.pkl here.
+   - Validate and select the best model.
 4. Machine Learning Model deployment: Deploy the final model on EC2.
   - Develop a Streamlit app locally.
-  - Push the app on a EC2 instance.
+  - Push the app on a EC2 instance. It's not easy as I thought, you should read about AWS EC2 and if it raises some issues, I advise you to read the common issues first.
 5. Trading Bot development: Develop a trading bot, design profitable strategy.
-6. Web App Development: Build a web app using Streamlit and Python to interact with the deployed model and display the predictions. And Deploy the final app on Streamlit Cloud.
+6. Web App Development: Build a web app using Streamlit and Python to interact with the deployed model and display the predictions. And Deploy the final app on AWS EC2.
