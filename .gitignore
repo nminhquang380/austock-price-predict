@@ -161,3 +161,4 @@ cython_debug/
 
 # Credentials
 credentials.py
+credentials.json
