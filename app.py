@@ -8,7 +8,7 @@ from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
 
-import psycopg2
+# import psycopg2
 import sys
 import boto3
 import os
