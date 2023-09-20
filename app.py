@@ -1,5 +1,7 @@
 import streamlit as st
 from datetime import date
+# from . import credentials
+import pandas as pd
 
 import yfinance as yf
 from prophet import Prophet
@@ -33,11 +35,25 @@ def load_data(ticker):
 
 # Get data from RDS PostgreSQL
 
+engine = psycopg2.connect(
+	database='postgres',
+	user='postgres',
+	password='minhquanf',
+	host='aus-stock-priec.c6exuk1owyog.ap-southeast-2.rds.amazonaws.com',
+	port='5432'
+)
 
-	
+def load_data_from_rds():
+	table = 'stock_price'
+	query = f"SELECT * FROM {table};"
+	df = pd.read_sql(query, engine)
+	return df
+
 data_load_state = st.text('Loading data...')
 data = load_data(selected_stock)
 data_load_state.text('Loading data... done!')
+data_rds = load_data_from_rds()
+data_load_state.text('Loading data from RDS... done!')
 
 st.subheader('Raw data')
 st.write(data.tail())
