@@ -1,7 +1,6 @@
 import os
 import boto3
 import sqlalchemy
-import tempfile
 import re
 
 def get_latest_file():
@@ -25,6 +24,28 @@ def get_latest_file():
         
 
 def lambda_handler(event, context):
+    # Get latest filename
     csv_file = get_latest_file()
     
-    engine = sqlalchemy.create_engine()
+    # Check the newest csv file
+    if csv_file:
+        # Connect to engine
+        db_url = 'postgresql://<user>:<password>@<host>:5432/<database>'
+        engine = sqlalchemy.create_engine(db_url)
+        
+        connection = engine.connect()
+        
+        insert_data_query = sqlalchemy.text(f"""
+        SELECT aws_s3.table_import_from_s3(
+        'stock_price', 'Date,Open,High,Low,Close,Adj_Close,Volume,Ticker,Day_of_year,Year,Lag_1,Lag_2', '(format csv, header true)',
+        'au-stock-price',
+        '{csv_file}',
+        'ap-southeast-2',
+        'YOUR-ACCESS-KEY', 'YOUR-SECRET-KEY'
+        );
+        """)
+
+        connection.execute(insert_data_query)
+
+        connection.close()
+        
