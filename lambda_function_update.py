@@ -17,7 +17,7 @@ def get_latest_file():
 
         # Extract the filename
         filename = latest_object['Key']
-        if re.match(r'^update_data_.*\.csv$', filename):
+        if re.match(r'^updated_data_.*\.csv$', filename):
             return filename
     
     return None
